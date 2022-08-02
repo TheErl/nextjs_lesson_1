@@ -1,6 +1,6 @@
 import { AnyAction, Reducer } from 'redux';
 import { uniqueId } from 'lodash';
-import { ADD_TODO } from '../actions/todo';
+import { ADD_TODO,REMOVE_TODO } from '../actions/todo';
 import { Todo } from '../types/todo';
 
 type TodoState = {
@@ -15,6 +15,8 @@ const todoReducer: Reducer<TodoState, AnyAction> = (state = { todos: [] }, actio
         id: uniqueId(), 
         text: action.payload,
       }] };
+    case REMOVE_TODO:
+      console.log(action);
     default:
       return state;
   }

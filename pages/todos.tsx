@@ -1,26 +1,36 @@
-import { addTodo } from "actions/todo";
+// import { addTodo } from "actions/todo";
+import TodoItem from "components/todoItem";
 import { NextPage } from "next";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos } from "selectors/todo";
+import { addTodo, deleteTodo } from "slices/todo";
+import { Todo } from "types/todo";
+// import { Todo } from "types/todo";
 
 
 const TodosPage: NextPage = () => {
 
-    // const { data, error } = useSWR('https://fakestoreapi.com/products?limit=5',fetcher);
 
     const [text, setText] = useState('');
     
-    const todos = useSelector(getTodos);
+    const todos: Todo[] = useSelector(getTodos);
 
     const dispatch = useDispatch();
 
-    const handleClick = useCallback(() => {
+    // const handleClick = useCallback(() => {
+    //     dispatch(addTodo({text : text}));
+    // }, [text,dispatch]);
+
+    const handleClick = () => {
         dispatch(addTodo(text));
-    }, [text]);
+    };
+
+    const removeTodo = (id: string) => {
+        dispatch(deleteTodo(id));
+    };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event);
         setText(event.target.value);
     };
 
@@ -30,11 +40,16 @@ const TodosPage: NextPage = () => {
             <input type="text" onChange={handleChange} />
             <button onClick={handleClick}>Add Todo</button>
         </div>
-        <div> { todos?.map((todo) => (
-            <div key={todo.id}>
-                {todo.text}
-            </div>
-        ))} </div>
+        <div> 
+            <ul>
+                {todos.map((todo) => (
+                    <li key={todo.id}>
+                        {todo.text}
+                        <button className="remove-task-button" onClick={() => { removeTodo(todo.id); }}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
         </>
     );
 

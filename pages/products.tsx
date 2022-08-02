@@ -24,8 +24,8 @@ const ProductsPage: NextPage = () => {
                 {product.id}
             </div>
         ))} </div>
-    )
+    );
 
-}
+};
 
 export default ProductsPage;
