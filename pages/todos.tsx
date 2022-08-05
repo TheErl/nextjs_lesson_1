@@ -1,11 +1,11 @@
 // import { addTodo } from "actions/todo";
-import TodoItem from "components/todoItem";
 import { NextPage } from "next";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos } from "selectors/todo";
-import { addTodo, deleteTodo } from "slices/todo";
+import { addTodo, deleteTodo, fetchTodos } from "slices/todo";
 import { Todo } from "types/todo";
+import TodoItem from "components/TodoItem";
 // import { Todo } from "types/todo";
 
 
@@ -13,10 +13,16 @@ const TodosPage: NextPage = () => {
 
 
     const [text, setText] = useState('');
-    
+
     const todos: Todo[] = useSelector(getTodos);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTodos() as never);
+    }, []);
+    
+    
 
     // const handleClick = useCallback(() => {
     //     dispatch(addTodo({text : text}));
@@ -43,10 +49,7 @@ const TodosPage: NextPage = () => {
         <div> 
             <ul>
                 {todos.map((todo) => (
-                    <li key={todo.id}>
-                        {todo.text}
-                        <button className="remove-task-button" onClick={() => { removeTodo(todo.id); }}>Delete</button>
-                    </li>
+                    <TodoItem key={todo.id} {...todo}/>
                 ))}
             </ul>
         </div>
