@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos } from "selectors/todo";
-import { addTodo, deleteTodo, fetchTodos } from "slices/todo";
+import { addTodo, deleteTodo, fetchTodosThunk } from "slices/todo";
 import { Todo } from "types/todo";
 import TodoItem from "components/TodoItem";
 // import { Todo } from "types/todo";
@@ -18,9 +18,9 @@ const TodosPage: NextPage = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchTodos() as never);
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchTodosThunk() as never);
+    // }, []);
     
     
 
@@ -38,6 +38,7 @@ const TodosPage: NextPage = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value);
+        dispatch(fetchTodosThunk() as never);
     };
 
     return (

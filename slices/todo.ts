@@ -1,5 +1,6 @@
 import { CaseReducer, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { uniqueId } from 'lodash';
+import { fetchTodos } from "services/todo";
 import { Todo } from "types/todo";
 
 
@@ -21,13 +22,11 @@ const fetchTodosReducer: CaseReducer<typeof initialState, PayloadAction<Todo[]>>
     return [...action.payload];
 };
 
-export const fetchTodos = createAsyncThunk(
+export const fetchTodosThunk = createAsyncThunk(
     'todos/fetchTodos',
-    async () => {
-      const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-      return response.json();
-    }
+    fetchTodos,
 );
+
 
 export const todosSlice = createSlice({
     name: "todos",
@@ -37,7 +36,7 @@ export const todosSlice = createSlice({
         deleteTodo: deleteTodoReducer,
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchTodos.fulfilled, fetchTodosReducer);
+        builder.addCase(fetchTodosThunk.fulfilled, fetchTodosReducer);
     },
 });
 
