@@ -1,8 +1,8 @@
 
-import { Action, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { SagaIterator } from "redux-saga";
 import { call, delay, put, takeEvery } from "redux-saga/effects";
-import { fetchTodos, postTodo } from "services/todo";
+import { postTodo } from "services/todo";
 import { addTodo, fetchTodosThunk } from "slices/todo";
 import { Todo } from "types/todo";
 

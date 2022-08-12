@@ -1,30 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from "react-redux";
-import { deleteTodo } from 'slices/todo';
+import React from 'react';
 import { Todo } from 'types/todo';
 
-const TodoItem = ({id, title}: Todo) => {
+const TodoItem: React.FC<{todo: Todo, onRemove: (id: string) => void}> = ({todo: {title, id}, onRemove}) => {
 
-	const dispatch = useDispatch();
 
-	const removeTask=()=>{
-		dispatch(deleteTodo(id));
+	const handleRemove = () => {
+		onRemove(id);
 	};
-
-	// useEffect(() => {
-	// 	console.log('mounted');
-	// 	return () => { 
-	// 		console.log('unmounted', id, text);
-	// 	};
-	// }, []);
-
-	// useEffect(() => {
-	// 	console.log('updated');
-	// });
-
-	// useEffect(() => {
-	// 	console.log('updated text');
-	// }, [text]);
 
 	return (
 		<li className="task-item">
@@ -33,7 +15,7 @@ const TodoItem = ({id, title}: Todo) => {
 			</div>
 			<div>
 				<button className="remove-task-button" onClick={()=>{
-					removeTask();
+					handleRemove();
 				}}>Delete</button>
 			</div>
 		</li>
