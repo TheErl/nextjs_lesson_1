@@ -7,11 +7,11 @@ import { addTodo, fetchTodosThunk } from "slices/todo";
 import { Todo } from "types/todo";
 
 function* addTodoHandler(action: PayloadAction<string>): SagaIterator {
-    console.log(action.payload);
-    const result = yield call(postTodo,action.payload);
-    yield delay(5000);
-    yield put(fetchTodosThunk() as never);
-    console.log(result);
+    console.log('new todo', action.payload);
+    // const result = yield call(postTodo,action.payload);
+    // yield delay(5000);
+    // yield put(fetchTodosThunk() as never);
+    // console.log(result);
 }
 
 function* fetchTodosHandler(action: PayloadAction<Todo[]>): SagaIterator{
