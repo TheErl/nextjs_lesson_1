@@ -5,9 +5,17 @@ import type { AppProps } from 'next/app';
 import CssBaseline from '@mui/material/CssBaseline';
 import 'styles/globals.css';
 import ThemeContext from 'components/ThemeContext';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://flyby-gateway.herokuapp.com/',
+  cache: new InMemoryCache(),
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
+    <ApolloProvider client={client}>
       <ReduxProvider store={store}>    
       <ThemeContext>
           <Head>
@@ -19,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </>
         </ThemeContext>    
       </ReduxProvider>
+    </ApolloProvider>
   );
 }
 
