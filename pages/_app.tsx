@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import 'styles/globals.css';
 import ThemeContext from 'components/ThemeContext';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import Header from 'components/Header';
 
 const client = new ApolloClient({
   uri: 'https://flyby-gateway.herokuapp.com/',
@@ -23,7 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Head>
           <>
           <CssBaseline />
-          <Component {...pageProps}/>
+          <>
+            <Header/>
+            <Component {...pageProps}/>
+          </>
+          
           </>
         </ThemeContext>    
       </ReduxProvider>

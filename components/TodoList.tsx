@@ -10,8 +10,7 @@ const TodoList = () => {
     return ( 
         <>
             <TodoForm onSubmit={handleAddTodo} />
-            <Box 
-                p={4} sx={{
+            <Box p={4} sx={{
                 display: 'flex',
                 justifyContent: 'center',
             }}>

@@ -2,8 +2,9 @@ import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Too
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import useHeader from "hooks/useHeader";
+import Link from "next/link";
 
-const pages = ['Todos'];
+const pages = [{label: 'Todos', href: '/'}, {label: 'Graphql', href: '/graphql'}];
 const settings = [{label: 'Change Theme'}];
 const Header = () => {
     const { 
@@ -12,6 +13,7 @@ const Header = () => {
         anchorElNav, anchorElUser
         } = useHeader();
     return (
+    <Box mb={3}>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -64,8 +66,13 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.href} onClick={handleCloseNavMenu}>
+                  <Link key={page.href} href={page.href}>
+                    <Typography textAlign="center">
+                      {page.label}       
+                    </Typography>
+                  </Link>
+                  {/* <Typography textAlign="center">{page.label}</Typography> */}
                 </MenuItem>
               ))}
             </Menu>
@@ -91,13 +98,13 @@ const Header = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+                <Link key={page.href} href={page.href}>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}>
+                    {page.label}       
+                  </Button>
+                </Link>
             ))}
           </Box>
 
@@ -138,6 +145,7 @@ const Header = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </Box>
     );
 };
 

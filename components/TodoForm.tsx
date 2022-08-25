@@ -22,7 +22,7 @@ const TodoForm:React.FC<{onSubmit: (formState:TodoFormState) => void}> = ({onSub
     const {register, handleSubmit, formState: { errors }, watch } = useForm<TodoFormState>();
 
     return ( 
-        <Box p={4} sx={{
+        <Box px={4} sx={{
             display: 'flex',
             justifyContent: 'center',
         }}>
