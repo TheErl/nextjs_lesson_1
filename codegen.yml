@@ -1,0 +1,5 @@
+schema: "https://flyby-gateway.herokuapp.com/"
+generates:
+  types/models.ts:
+    plugins:
+      - typescript

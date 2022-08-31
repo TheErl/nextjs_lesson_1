@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import React from "react";
 import { useQuery, gql, useMutation } from '@apollo/client';
-import { LocationAPI } from "types/graphql";
+// import { LocationAPI } from "types/graphql";
 import Error from "next/error";
 import Rating from '@mui/material/Rating';
 import { Box, Button, CircularProgress, Grid, Paper, styled, TextField, Typography, } from "@mui/material";
+import {Location, Query} from '../types/models';
 
 const GET_LOCATIONS = gql`
   query GetLocations {
@@ -43,10 +44,10 @@ const Item = styled(Paper)(({ theme }) => ({
   
 const GraphqlPage: NextPage = () => {
 
-    const { loading, error, data } = useQuery<{locations: LocationAPI[]}>(GET_LOCATIONS);
+    const { loading, error, data } = useQuery<Query>(GET_LOCATIONS);
     const [createReview] = useMutation(CREATE_REVIEW, {refetchQueries: ['GetLocations']});
 
-    const handleCreateReview = (locationId: number) => {
+    const handleCreateReview = (locationId: string) => {
         createReview({
             variables: {
                 "locationReview": {
@@ -68,24 +69,24 @@ const GraphqlPage: NextPage = () => {
             {data.locations.map(({ id, name, description, photo, reviewsForLocation }) => (
                         <Grid key={id} item xs={4}>
                             <Item>
-                        <h3 className="text-3xl font-bold text-dark-500">{name}</h3>
-                        <img width="400" height="250" alt="location-reference" src={`${photo}`} />
-                        <br />
-                        <b>About this location:</b>
-                        <p>{description}</p>
-                        <Box sx={{width: '100%', display: "flex", justifyContent: 'space-around'}}>
-                            <TextField size="small" label="Review text"/>
-                            <Button className="bg-blue-500"  variant="contained" onClick={() => handleCreateReview(id)}>Create review</Button>
-                        </Box>
-                            <h4>Reviews for location</h4>
-                            { reviewsForLocation.map(({id, comment, rating}) => (
-                                <div key={id}>
-                                    <p>ID : {id}</p>
-                                    <p>comment : {comment}</p>
-                                    <Typography component="legend">Rating</Typography>
-                                    <Rating name="read-only" value={rating} readOnly />
-                                </div>
-                            )) }
+                            <h3 className="text-3xl font-bold text-dark-500">{name}</h3>
+                            <img width="400" height="250" alt="location-reference" src={`${photo}`} />
+                            <br />
+                            <b>About this location:</b>
+                            <p>{description}</p>
+                            <Box sx={{width: '100%', display: "flex", justifyContent: 'space-around'}}>
+                                <TextField size="small" label="Review text"/>
+                                <Button className="bg-blue-500"  variant="contained" onClick={() => handleCreateReview(id)}>Create review</Button>
+                            </Box>
+                                <h4>Reviews for location</h4>
+                                { reviewsForLocation.map((review) => review && (
+                                    <div key={review.id}>
+                                        <p>ID : {review.id}</p>
+                                        <p>comment : {review.comment}</p>
+                                        <Typography component="legend">Rating</Typography>
+                                        <Rating name="read-only" value={review.rating} readOnly />
+                                    </div>
+                                )) }
                         </Item>
                     </Grid>
             ))}

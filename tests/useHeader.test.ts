@@ -1,10 +1,17 @@
 import {describe, expect, test} from '@jest/globals';
 import useHeader from 'hooks/useHeader';
+import { useState } from 'react';
 
-const sum = (a: number, b: number) => a+b;
+// jest.mock('react');
+jest.mock('react',() => ({ useState: jest.fn().mockReturnValue([null, null]) }));
+jest.mock('react-redux',() => ({ useDispatch: jest.fn() }));
+// const sum = (a: number, b: number) => a+b;
+
 
 describe('useHeader hook', () => {
-  test('adds 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3);
+  test('function return a set of properties', () => {
+    expect(useHeader()).toMatchObject({
+      handleChangeTheme: expect.anything()
+    });
   });
 });
