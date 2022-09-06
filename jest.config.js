@@ -14,6 +14,10 @@ const customJestConfig = {
     '^pages/(.*)$': '<rootDir>/pages/$1',
     '^hooks/(.*)$': '<rootDir>/hooks/$1',
     '^slices/(.*)$': '<rootDir>/slices/$1',
+    '^selectors/(.*)$': '<rootDir>/selectors/$1',
+    '^services/(.*)$': '<rootDir>/services/$1',
+    '^utils/(.*)$': '<rootDir>/utils/$1',
+    '^sagas/(.*)$': '<rootDir>/sagas/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 };

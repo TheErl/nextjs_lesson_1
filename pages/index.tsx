@@ -1,10 +1,7 @@
 import { NextPage } from "next";
 import React from "react";
+import TodoList from 'components/TodoList';
 
-const TodosPage: NextPage = () => (
-        <h1>
-        welcome to Next.js!
-        </h1>
-);
+const TodosPage: NextPage = () => <TodoList />;
 
 export default TodosPage;

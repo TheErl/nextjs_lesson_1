@@ -149,4 +149,6 @@ const Header = () => {
     );
 };
 
+Header.displayName = 'Shaurma';
+
 export default Header;

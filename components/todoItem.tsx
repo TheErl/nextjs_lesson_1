@@ -13,8 +13,8 @@ const TodoItem: React.FC<{todo: Todo, onRemove: (id: string) => void}> = ({todo:
 	return (
 		<ListItem
             secondaryAction={
-            	<IconButton edge="end" aria-label="delete">
-            		<DeleteIcon color='error' onClick={()=>{ handleRemove(); }}/>
+            	<IconButton edge="end" aria-label="delete" onClick={handleRemove}>
+            		<DeleteIcon color='error' />
                 </IconButton>
             }
         >
